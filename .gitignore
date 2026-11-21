@@ -1,0 +1,29 @@
+# Release (imagens Docker pre-buildadas)
+release/
+
+# Test DB
+*.db
+*.db-journal
+
+# Dependencies
+node_modules/
+backend/generated/
+backend/test.db
+backend/prisma/migrations/*/migration.sql.bak
+
+# Env
+.env
+backend/.env
+!backend/.env.example
+!.env.example
+
+# Build
+frontend/dist/
+backend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

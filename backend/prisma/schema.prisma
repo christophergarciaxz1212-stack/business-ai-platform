@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  owner
+  admin
+  agent
+}
+
+enum Segment {
+  retail
+  services
+  restaurant
+  clinic
+  education
+  other
+}
+
+model User {
+  id           String         @id @default(uuid())
+  email        String         @unique
+  password     String
+  name         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  memberships  TenantMember[]
+  auditLogs    AuditLog[]
+}
+
+model Tenant {
+  id            String           @id @default(uuid())
+  slug          String           @unique
+  companyName   String
+  segment       Segment          @default(other)
+  description   String           @default("")
+  phone         String           @default("")
+  address       String           @default("")
+  workingHours  Json             @default("{}")
+  timezone      String           @default("America/Sao_Paulo")
+  products      Json             @default("[]")
+  services      Json             @default("[]")
+  faq           Json             @default("[]")
+  policies      String           @default("")
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  members       TenantMember[]
+  whatsappConfigs WhatsAppConfig[]
+  aiConfig      AiConfig?
+  customers     Customer[]
+  conversations Conversation[]
+  messages      Message[]
+  knowledgeDocs KnowledgeDoc[]
+  knowledgeChunks KnowledgeChunk[]
+  auditLogs     AuditLog[]
+  errorLogs     ErrorLog[]
+}
+
+model TenantMember {
+  id        String   @id @default(uuid())
+  userId    String
+  tenantId  String
+  role      Role     @default(agent)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
+}
+
+model WhatsAppConfig {
+  id             String   @id @default(uuid())
+  tenantId       String
+  phoneNumberId  String   @unique
+  accessTokenEnc String
+  appSecretEnc   String?
+  verifyToken    String?
+  wabaId         String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+model AiConfig {
+  id              String   @id @default(uuid())
+  tenantId        String   @unique
+  provider        String   @default("gemini")
+  model           String   @default("gemini-1.5-flash")
+  apiKeyEnc       String?
+  baseUrl         String?
+  systemPrompt    String   @default("")
+  personality     String   @default("friendly")
+  responseLength  String   @default("medium")
+  useEmojis       Boolean  @default(true)
+  autoTransfer    Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model Customer {
+  id          String         @id @default(uuid())
+  tenantId    String
+  phone       String
+  name        String         @default("")
+  tags        Json           @default("[]")
+  notes       String         @default("")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  tenant      Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  conversations Conversation[]
+
+  @@unique([tenantId, phone])
+  @@index([tenantId])
+}
+
+model Conversation {
+  id             String    @id @default(uuid())
+  tenantId       String
+  customerId     String
+  status         String    @default("open")
+  humanTakeover  Boolean   @default(false)
+  lastMessageAt  DateTime  @default(now())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  tenant         Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customer       Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  messages       Message[]
+
+  @@index([tenantId])
+  @@index([customerId])
+}
+
+model Message {
+  id             String   @id @default(uuid())
+  tenantId       String
+  conversationId String
+  role           String
+  content        String
+  mediaType      String?
+  mediaUrl       String?
+  externalId     String?  @unique
+  createdAt      DateTime @default(now())
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([conversationId])
+}
+
+model KnowledgeDoc {
+  id        String   @id @default(uuid())
+  tenantId  String
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  chunks    KnowledgeChunk[]
+
+  @@index([tenantId])
+}
+
+model KnowledgeChunk {
+  id        String   @id @default(uuid())
+  tenantId  String
+  docId     String
+  content   String
+  keywords  String   @default("")
+  createdAt DateTime @default(now())
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  doc       KnowledgeDoc @relation(fields: [docId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([docId])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  tenantId  String?
+  userId    String?
+  action    String
+  meta      Json     @default("{}")
+  createdAt DateTime @default(now())
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+}
+
+model ErrorLog {
+  id        String   @id @default(uuid())
+  tenantId  String?
+  message   String
+  stack     String?
+  meta      Json     @default("{}")
+  createdAt DateTime @default(now())
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+}
