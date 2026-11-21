@@ -1,4 +1,4 @@
-# JARVIS BUSINESS AI — Plataforma de Atendimento Automatizado
+# BUSINESS AI — Plataforma de Atendimento Automatizado
 
 Software para automação de atendimento via WhatsApp Business (Meta Cloud API) integrado a modelos de IA gratuitos (Google Gemini / Ollama), com painel de controle, histórico de conversas, transferência para humano e base de conhecimento.
 

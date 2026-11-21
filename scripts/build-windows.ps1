@@ -1,5 +1,5 @@
-# Build / package JARVIS BUSINESS AI for Windows
-Write-Host "=== JARVIS BUSINESS AI - Build Windows ===" -ForegroundColor Cyan
+# Build / package BUSINESS AI for Windows
+Write-Host "=== BUSINESS AI - Build Windows ===" -ForegroundColor Cyan
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 # Verify Docker

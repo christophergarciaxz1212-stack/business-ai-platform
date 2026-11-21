@@ -1,11 +1,11 @@
-# JARVIS BUSINESS AI — Fase A: Backend Core (Auth, Tenant, Banco, Config)
+# BUSINESS AI — Fase A: Backend Core (Auth, Tenant, Banco, Config)
 
 > For the executing agent: use godmode:inline-execution or godmode:delegated-execution
 > to run this plan task by task. Steps use checkboxes for tracking.
 
 **Goal:** Criar o backend Node 20 + Express + Prisma + Postgres com auth multi-tenant (JWT), isolamento por `tenant_id` + RLS, e endpoints de perfil do negócio, testável via Jest/Supertest.
 
-**Design:** docs/plans/2026-11-21-jarvis-business-ai-design.md
+**Design:** docs/plans/2026-11-21-BusinessAI-business-ai-design.md
 
 **Architecture:** Monolito modular em camadas (routes → controllers → services → repositories via Prisma). Multi-tenant via `TenantMember` many-to-many e RLS no Postgres. Credenciais criptografadas com AES-256-GCM. JWT access+refresh.
 
@@ -90,7 +90,7 @@ Adicionar deps: express 4.19.2, @prisma/client 5.22.0, bcrypt 5.1.1, jsonwebtoke
 ```
 NODE_ENV=development
 PORT=3000
-DATABASE_URL=postgresql://jarvis:jarvis@localhost:5432/jarvis?schema=public
+DATABASE_URL=postgresql://BusinessAI:BusinessAI@localhost:5432/BusinessAI?schema=public
 JWT_SECRET=change-me-at-least-32-chars
 JWT_REFRESH_SECRET=change-me-refresh-at-least-32-chars
 ENCRYPTION_KEY=32-bytes-hex-or-base64

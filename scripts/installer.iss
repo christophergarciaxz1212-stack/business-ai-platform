@@ -1,7 +1,7 @@
-; JARVIS BUSINESS AI - Inno Setup installer
-#define MyAppName "JARVIS BUSINESS AI"
+; BUSINESS AI - Inno Setup installer
+#define MyAppName "BUSINESS AI"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "JARVIS"
+#define MyAppPublisher "BusinessAI"
 #define MyAppURL "https://localhost:8080"
 
 [Setup]
@@ -12,7 +12,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=dist
-OutputBaseFilename=JARVIS-Setup
+OutputBaseFilename=BusinessAI-Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -26,4 +26,4 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\scripts\start.ps1"; WorkingDir: "
 Name: "{autodesktop}\{#MyAppName}"; Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -File ""{app}\scripts\start.ps1"""; WorkingDir: "{app}"
 
 [Run]
-Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -File ""{app}\scripts\start.ps1"""; Description: "Iniciar JARVIS"; Flags: nowait postinstall skipifsilent
+Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -File ""{app}\scripts\start.ps1"""; Description: "Iniciar BusinessAI"; Flags: nowait postinstall skipifsilent

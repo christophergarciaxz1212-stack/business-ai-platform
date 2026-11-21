@@ -1,4 +1,4 @@
-# JARVIS BUSINESS AI — Design (MVP Fase 1)
+# BUSINESS AI — Design (MVP Fase 1)
 
 Date: 2026-11-21. Status: approved by the user (provisional decisions documented below).
 

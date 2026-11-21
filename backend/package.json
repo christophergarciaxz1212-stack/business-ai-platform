@@ -1,5 +1,5 @@
 {
-  "name": "jarvis-business-ai-backend",
+  "name": "BusinessAI-business-ai-backend",
   "version": "1.0.0",
   "main": "src/server.js",
   "type": "commonjs",

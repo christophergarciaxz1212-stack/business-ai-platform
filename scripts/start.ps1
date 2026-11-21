@@ -1,4 +1,4 @@
-# JARVIS BUSINESS AI - Launcher (Windows)
+# BUSINESS AI - Launcher (Windows)
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
@@ -18,7 +18,7 @@ if (-not (Test-Path "$Root\.env")) {
 }
 
 Push-Location $Root
-Write-Host "Subindo servicos JARVIS..." -ForegroundColor Cyan
+Write-Host "Subindo servicos BusinessAI..." -ForegroundColor Cyan
 docker compose up -d --build
 if ($LASTEXITCODE -ne 0) { Write-Host "Falha ao subir servicos." -ForegroundColor Red; exit 1 }
 
@@ -27,6 +27,6 @@ for ($i=0; $i -lt 30; $i++) {
     try { Invoke-WebRequest -Uri "http://localhost:8080" -UseBasicParsing -TimeoutSec 2 | Out-Null; break } catch { Start-Sleep -Seconds 2 }
 }
 
-Write-Host "JARVIS disponivel em http://localhost:8080" -ForegroundColor Green
+Write-Host "BusinessAI disponivel em http://localhost:8080" -ForegroundColor Green
 Start-Process "http://localhost:8080"
 Pop-Location

@@ -5,7 +5,7 @@ import { ChevronRight, ChevronLeft, Check, SkipForward } from 'lucide-react';
 import api from '../lib/api';
 
 const STEPS = [
-  { id: 'welcome', title: 'Bem-vindo ao JARVIS', optional: false },
+  { id: 'welcome', title: 'Bem-vindo ao BusinessAI', optional: false },
   { id: 'business', title: 'Informações do negócio', optional: false },
   { id: 'whatsapp', title: 'Conectar WhatsApp', optional: true },
   { id: 'ai', title: 'Configurar inteligência artificial', optional: true },

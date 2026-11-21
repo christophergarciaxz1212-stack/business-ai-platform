@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.json({ limit: '1mb' }));
 app.use(globalLimiter);
 
-app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'jarvis-business-ai' }));
+app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'BusinessAI-business-ai' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tenants', authMiddleware, tenantContextMiddleware, tenantRoutes);
@@ -35,7 +35,7 @@ app.use('/api/customers', authMiddleware, tenantContextMiddleware, require('./ro
 app.use(errorHandler);
 
 const server = config.NODE_ENV === 'test' ? null : app.listen(config.PORT, () => {
-  logger.info({ port: config.PORT }, 'JARVIS backend listening');
+  logger.info({ port: config.PORT }, 'BusinessAI backend listening');
 });
 
 function shutdown() {

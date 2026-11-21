@@ -1,4 +1,4 @@
-# JARVIS BUSINESS AI - Instalador automatico (Windows)
+# BUSINESS AI - Instalador automatico (Windows)
 # Instala dependencias (Node.js, Docker Desktop), configura o ambiente e sobe os servicos.
 
 $ErrorActionPreference = 'Stop'
@@ -102,7 +102,7 @@ if (-not (Test-Path $envFile)) {
     $content = @"
 NODE_ENV=production
 PORT=3000
-DATABASE_URL=postgresql://jarvis:jarvis@postgres:5432/jarvis?schema=public
+DATABASE_URL=postgresql://BusinessAI:BusinessAI@postgres:5432/BusinessAI?schema=public
 JWT_SECRET=$jwtSecret
 JWT_REFRESH_SECRET=$jwtRefresh
 ENCRYPTION_KEY=$encKey
@@ -110,9 +110,9 @@ CORS_ORIGIN=http://localhost:8080
 LOG_LEVEL=info
 VERIFY_TOKEN=whatsapp_verify_token_secure_2025
 PUBLIC_URL=
-POSTGRES_USER=jarvis
-POSTGRES_PASSWORD=jarvis
-POSTGRES_DB=jarvis
+POSTGRES_USER=BusinessAI
+POSTGRES_PASSWORD=BusinessAI
+POSTGRES_DB=BusinessAI
 "@
     Set-Content -Path $envFile -Value $content -Encoding UTF8
     Write-Ok ".env criado com chaves seguras geradas automaticamente"
@@ -121,7 +121,7 @@ POSTGRES_DB=jarvis
 }
 
 # --- 5. Subir servicos ---
-Write-Step "Subindo servicos JARVIS (Docker Compose)"
+Write-Step "Subindo servicos BusinessAI (Docker Compose)"
 Push-Location $Root
 docker compose up -d --build
 if ($LASTEXITCODE -ne 0) {
@@ -155,29 +155,29 @@ $startMenu = [Environment]::GetFolderPath('Programs')
 $wshell = New-Object -ComObject WScript.Shell
 
 # Atalho para iniciar
-$sc = $wshell.CreateShortcut("$desktop\JARVIS BUSINESS AI.lnk")
+$sc = $wshell.CreateShortcut("$desktop\BUSINESS AI.lnk")
 $sc.TargetPath = "powershell.exe"
 $sc.Arguments = "-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$Root\scripts\start.ps1`""
 $sc.WorkingDirectory = $Root
-$sc.Description = "Iniciar JARVIS BUSINESS AI"
+$sc.Description = "Iniciar BUSINESS AI"
 $sc.Save()
 Write-Ok "Atalho criado na area de trabalho"
 
 # Atalho para parar
-$sc2 = $wshell.CreateShortcut("$desktop\JARVIS - Parar.lnk")
+$sc2 = $wshell.CreateShortcut("$desktop\BusinessAI - Parar.lnk")
 $sc2.TargetPath = "powershell.exe"
 $sc2.Arguments = "-ExecutionPolicy Bypass -Command `"cd '$Root'; docker compose down`""
 $sc2.WorkingDirectory = $Root
-$sc2.Description = "Parar JARVIS BUSINESS AI"
+$sc2.Description = "Parar BUSINESS AI"
 $sc2.Save()
 Write-Ok "Atalho de parada criado"
 
 # --- 8. Abrir navegador ---
-Write-Step "Abrindo JARVIS"
+Write-Step "Abrindo BusinessAI"
 Start-Process "http://localhost:8080"
 Write-Host ""
 Write-Host "================================================" -ForegroundColor Green
-Write-Host "  JARVIS BUSINESS AI instalado com sucesso!" -ForegroundColor Green
+Write-Host "  BUSINESS AI instalado com sucesso!" -ForegroundColor Green
 Write-Host "  Acesse: http://localhost:8080" -ForegroundColor Green
 Write-Host "  Registre sua conta e conclua o onboarding." -ForegroundColor Green
 Write-Host "================================================" -ForegroundColor Green

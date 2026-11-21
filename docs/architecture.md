@@ -1,4 +1,4 @@
-# Arquitetura — JARVIS BUSINESS AI
+# Arquitetura — BUSINESS AI
 
 ## Visão geral
 Plataforma multi-tenant de atendimento automatizado via WhatsApp Business (Meta Cloud API) com IA gratuita (Gemini/Ollama), painel CRM, histórico, transferência para humano e base de conhecimento.

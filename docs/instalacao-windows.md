@@ -6,9 +6,9 @@
 - 4 GB de RAM livres.
 
 ## Instalação
-1. Baixe o instalador `JARVIS-Setup.exe` (ou clone o repositório).
+1. Baixe o instalador `BusinessAI-Setup.exe` (ou clone o repositório).
 2. Execute o instalador e escolha o diretório.
-3. O atalho "JARVIS BUSINESS AI" será criado na área de trabalho.
+3. O atalho "BUSINESS AI" será criado na área de trabalho.
 4. Execute o atalho. Ele verifica o Docker, cria o `.env` (se ausente) e sobe os serviços.
 5. Acesse http://localhost:8080 e registre sua conta.
 

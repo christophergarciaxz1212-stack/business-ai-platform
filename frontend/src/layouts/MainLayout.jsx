@@ -81,7 +81,7 @@ export default function MainLayout() {
           </button>
           <div className="flex items-center gap-2 text-sm text-[#a3a3a3]">
             <Sparkles className="w-4 h-4" />
-            <span>JARVIS BUSINESS AI</span>
+            <span>BUSINESS AI</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -108,7 +108,7 @@ function Brand() {
     <div className="flex items-center gap-3">
       <div className="w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center font-black text-lg">J</div>
       <div>
-        <div className="font-bold text-sm leading-tight">JARVIS</div>
+        <div className="font-bold text-sm leading-tight">BusinessAI</div>
         <div className="text-[10px] text-[#a3a3a3] leading-tight">Business AI</div>
       </div>
     </div>
